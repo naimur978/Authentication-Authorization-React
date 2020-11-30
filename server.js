@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-
+require("dotenv").config();
 const users = require("./routes/api/users");
 
 const app = express();
@@ -10,7 +10,7 @@ const app = express();
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
-    extended: false
+    extended: false,
   })
 );
 app.use(bodyParser.json());
@@ -20,12 +20,9 @@ const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
+  .connect(db, { useNewUrlParser: true })
   .then(() => console.log("MongoDB successfully connected"))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 // Passport middleware
 app.use(passport.initialize());
